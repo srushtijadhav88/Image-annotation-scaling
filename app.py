@@ -13,18 +13,21 @@ import os
 def main():
 
     st.set_page_config(
-        layout="wide",
-        initial_sidebar_state="collapsed"
+        layout="wide"
     )
 
-    tabs = st.tabs(('About Me','Annotate Image','Resize Image'))
+    tabs = st.sidebar.selectbox(
+        'Choose one of the following',
+        ('About Me','Annotate Image','Resize Image'),
+        key="main_menu"
+    )
 
     # UI Options 
-    with tabs[0]:
+    if tabs == 'About Me':
         aboutMe() 
-    with tabs[1]:
+    if tabs == 'Annotate Image':
         annotateImg()
-    with tabs[2]:
+    if tabs == 'Resize Image':
         resizeImg()
 
 # Pre-process Image
@@ -58,7 +61,7 @@ def aboutMe():
 def annotateImg():
     st.header("Annotate Image")
 
-    img = uploadImage("annotation_img", 320)
+    img = uploadImage("annotation_img")
 
     # Specify canvas parameters in application
     drawing_mode = st.sidebar.selectbox(
@@ -69,7 +72,6 @@ def annotateImg():
     if drawing_mode == 'point':
         point_display_radius = st.sidebar.slider("Point display radius: ", 1, 25, 3)
     stroke_color = st.sidebar.color_picker("Stroke color hex: ", "#5FCE42")
-    bg_color = st.sidebar.color_picker("Background color hex: ", "#eee")
 
     realtime_update = st.sidebar.checkbox("Update in realtime", True)
 
@@ -78,7 +80,6 @@ def annotateImg():
         fill_color="rgba(0, 0, 0, 0)",  # Fixed fill color with some opacity
         stroke_width=stroke_width,
         stroke_color=stroke_color,
-        background_color=bg_color,
         background_image=Image.fromarray(img),
         update_streamlit=realtime_update,
         height=img.shape[0],
