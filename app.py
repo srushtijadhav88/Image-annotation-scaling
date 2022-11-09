@@ -56,7 +56,7 @@ def uploadImage(key, new_height=480):
 
 def aboutMe():
     
-    st.markdown(requests.get(os.getenv('ABOUT_ME','https://raw.githubusercontent.com/AbhishekMore-1/AbhishekMore-1/main/README.md')).text, unsafe_allow_html=True)
+    st.markdown(requests.get(os.getenv('ABOUT_ME','https://raw.githubusercontent.com/AdarshZamwar/AdarshZamwar/main/README.md')).text, unsafe_allow_html=True)
 
 def annotateImg():
     st.header("Annotate Image")
