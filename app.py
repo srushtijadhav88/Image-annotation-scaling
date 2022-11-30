@@ -18,13 +18,11 @@ def main():
 
     tabs = st.sidebar.selectbox(
         'Choose one of the following',
-        ('About Me','Annotate Image','Resize Image'),
+        ('Annotate Image','Resize Image'),
         key="main_menu"
     )
 
     # UI Options 
-    if tabs == 'About Me':
-        aboutMe() 
     if tabs == 'Annotate Image':
         annotateImg()
     if tabs == 'Resize Image':
@@ -51,12 +49,6 @@ def uploadImage(key, new_height=480):
         return preProcessImg(img, new_height)
     
     return cv2.cvtColor(preProcessImg(cv2.imread('sample.jpg'),new_height),cv2.COLOR_BGR2RGB)
-
-# About Me UI 
-
-def aboutMe():
-    
-    st.markdown(requests.get(os.getenv('ABOUT_ME','https://raw.githubusercontent.com/AdarshZamwar/AdarshZamwar/main/README.md')).text, unsafe_allow_html=True)
 
 def annotateImg():
     st.header("Annotate Image")
